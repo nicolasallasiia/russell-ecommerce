@@ -2,10 +2,16 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="footer">
-      <div className="container">
-        <p>© 2025 Russell Beer Pub. Todos los derechos reservados.</p>
-      </div>
+    <footer
+      style={{
+        marginTop: "40px",
+        textAlign: "center",
+        padding: "10px",
+        background: "#222",
+        color: "#fff",
+      }}
+    >
+      <p>&copy; 2025 Russell Beer Pub</p>
     </footer>
   );
 }
