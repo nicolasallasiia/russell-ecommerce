@@ -2,7 +2,7 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  
+
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
@@ -13,7 +13,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Estilo de los enlaces */
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Enlaces */
 a {
   font-weight: 500;
   color: #646cff;
@@ -23,7 +30,7 @@ a:hover {
   color: #535bf2;
 }
 
-/* Estilo para el body */
+/* Body */
 body {
   margin: 0;
   display: flex;
@@ -33,14 +40,18 @@ body {
   background-color: #f5f5f5;
   color: #333;
   padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Estilos para los títulos */
+/* Títulos */
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
   margin-bottom: 20px;
   color: #222;
+}
+h2, h3 {
+  margin: 0.5em 0;
 }
 
 /* Botones */
@@ -54,7 +65,7 @@ button {
   background-color: #333;
   color: white;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background-color 0.3s, border-color 0.25s;
   margin-top: 10px;
 }
 button:hover {
@@ -66,7 +77,14 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-/* Estilo en modo claro */
+/* Contenedor principal */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Estilo claro */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -80,14 +98,7 @@ button:focus-visible {
   }
 }
 
-/* Reset básico para todos los elementos */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Contenedores flexibles */
+/* Divs */
 div {
   box-sizing: border-box;
 }
