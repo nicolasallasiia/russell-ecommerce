@@ -35,3 +35,7 @@
     width: 100%;
   }
   
+  button.in-cart {
+  background-color: #999;
+  cursor: not-allowed;
+}

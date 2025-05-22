@@ -5,36 +5,89 @@ import Cervezas from "./pages/Cervezas";
 import Tragos from "./pages/Tragos";
 import Menu from "./pages/Menu";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout"; 
 import Header from "./components/header";
 import Footer from "./components/footer";
+import ThankYou from "./pages/ThankYou";
 
 function App() {
-  // Leer el carrito desde localStorage o usar un array vacío
-  const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+  // Inicializar carrito leyendo localStorage con seguridad
+  const [cart, setCart] = useState(() => {
+    try {
+      const saved = localStorage.getItem("cart");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
 
-  const [cart, setCart] = useState(savedCart);
+  const [successMessage, setSuccessMessage] = useState("");
+
+  // Guardar carrito en localStorage cada vez que cambie
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (product) => {
-    const updatedCart = [...cart, product];
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart)); // Guardar el carrito en localStorage
+    setCart((prevCart) => [...prevCart, product]);
+    setSuccessMessage(`${product.name} agregado al carrito`);
+
+    setTimeout(() => {
+      setSuccessMessage("");
+    }, 2000);
   };
 
   const removeFromCart = (productId) => {
-    const updatedCart = cart.filter((item) => item.id !== productId);
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart)); // Guardar el carrito actualizado en localStorage
+    setCart((prevCart) => {
+      const index = prevCart.findIndex((item) => item.id === productId);
+      if (index === -1) return prevCart;
+      const newCart = [...prevCart];
+      newCart.splice(index, 1); // elimina solo la primera aparición
+      return newCart;
+    });
   };
 
   return (
     <>
       <Header />
       <Navbar cartCount={cart.length} />
+
+      {/* Mensaje de ok */}
+      {successMessage && (
+        <div
+          style={{
+            backgroundColor: "#d4edda",
+            color: "#155724",
+            padding: "10px",
+            margin: "10px auto",
+            textAlign: "center",
+            borderRadius: "5px",
+            width: "fit-content",
+          }}
+        >
+          {successMessage}
+        </div>
+      )}
+
       <Routes>
-        <Route path="/cervezas" element={<Cervezas addToCart={addToCart} />} />
-        <Route path="/tragos" element={<Tragos addToCart={addToCart} />} />
-        <Route path="/menu" element={<Menu addToCart={addToCart} />} />
-        <Route path="/cart" element={<Cart cart={cart} removeFromCart={removeFromCart} />} />
+        <Route path="/cervezas" element={<Cervezas addToCart={addToCart} cart={cart} />} />
+        <Route path="/tragos" element={<Tragos addToCart={addToCart} cart={cart} />} />
+        <Route path="/menu" element={<Menu addToCart={addToCart} cart={cart} />} />
+        <Route path="/thankyou" element={<ThankYou />} />
+        <Route
+          path="/cart"
+          element={
+            <Cart
+              cart={cart}
+              addToCart={addToCart}
+              removeFromCart={removeFromCart}
+            />
+          }
+        />
+        <Route
+          path="/checkout"
+          element={<Checkout cart={cart} />}
+        />
       </Routes>
       <Footer />
     </>
