@@ -8,7 +8,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout"; 
 import Header from "./components/header";
 import Footer from "./components/footer";
-import ThankYou from "./pages/ThankYou";
+
 
 function App() {
   // Inicializar carrito leyendo localStorage con seguridad
@@ -73,7 +73,6 @@ function App() {
         <Route path="/cervezas" element={<Cervezas addToCart={addToCart} cart={cart} />} />
         <Route path="/tragos" element={<Tragos addToCart={addToCart} cart={cart} />} />
         <Route path="/menu" element={<Menu addToCart={addToCart} cart={cart} />} />
-        <Route path="/thankyou" element={<ThankYou />} />
         <Route
           path="/cart"
           element={

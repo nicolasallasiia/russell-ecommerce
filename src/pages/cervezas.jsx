@@ -1,8 +1,25 @@
-import React from "react";
-import { cervezas } from "../data/products";
+import React, { useEffect, useState } from "react";
+import { getProductsByCategory } from "../data/asyncMock";
 import ProductCard from "../components/ProductCard";
 
 function Cervezas({ addToCart, cart }) {
+  const [cervezas, setCervezas] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getProductsByCategory("cervezas")
+      .then((data) => {
+        setCervezas(data);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <p>Cargando cervezas...</p>;
+  }
+
   return (
     <div>
       <h1>Cervezas</h1>

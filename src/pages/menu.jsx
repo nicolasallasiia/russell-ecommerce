@@ -1,8 +1,25 @@
-import React from "react";
-import { menu } from "../data/products";
+import React, { useEffect, useState } from "react";
+import { getProductsByCategory } from "../data/asyncMock";
 import ProductCard from "../components/ProductCard";
 
 function Menu({ addToCart, cart }) {
+  const [menu, setMenu] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getProductsByCategory("menu")
+      .then((data) => {
+        setMenu(data);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <p>Cargando menú...</p>;
+  }
+
   return (
     <div>
       <h1>Menú de Comidas</h1>
